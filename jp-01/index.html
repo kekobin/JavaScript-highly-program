@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>基本属性</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+	//浏览器对象模型
+	//--1.浏览器详细信息-navigator :js浏览器判断函数
+	function userBrowser(){
+	    var browserName = navigator.userAgent.toLowerCase(), result;
+
+	    //这种方式判断IE只能判断IE11以下的，IE11及以上的userAgent中不含msie
+	    if(/msie/i.test(browserName) && !/opera/.test(browserName)){
+	        result = "IE";
+	    }else if(/firefox/i.test(browserName)){
+	        result =  "Firefox";
+	    }else if(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName)){
+	        result =  "Chrome";
+	    }else if(/opera/i.test(browserName)){
+	        result =  "Opera";
+	    }else if(/webkit/i.test(browserName) &&!(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName))){
+	        result =  "Safari";
+	    }else{
+	        result =  "unKnow";
+	    }
+
+	    return result;
+	}
+
+	// var browser = userBrowser();
+	// console.log(browser);
+
+	//--2.浏览器所加载页面的详细信息-location
+	var url = "https://www.baidu.com/?type=demo#direction";
+	console.log(location.hash)//#direction
+	console.log(location.host)//www.baidu.com
+	console.log(location.href)//https://www.baidu.com/?type=demo
+	console.log(location.protocol)//https:
+	console.log(location.search)//?type=demo
+
+	// location.reload(); 
+
+	//--3.数组-Array
+	var nums = [{
+		name: 'aaa'
+	},{
+		name: 'bbb'
+	}, {
+		name: 'ccc'
+	}, {
+		name: 'ddd'
+	}];
+
+	//Array:push()
+	nums.push({
+		name: 'eee'
+	});
+	
+
+	//Array:pop() -- 取得最后一项
+	nums.pop();
+
+	//Array:shift() -- 取得第一项, 并且原array结果为去掉第一项之后部分
+	var getFirstItem = nums.shift();
+	// console.log(getFirstItem);
+
+	//Array:unshift() -- 往第一个位置添加
+	nums.unshift({
+		name: 'zzz'
+	});
+
+	//Array:slice(start, end) --裁剪, 而Array.prototype.slice.call(obj)可以将类数组转换为数组
+	console.log(nums.slice(1,2))
+
+	//Array:splice()
+	//(1)删除:要删除的第一项的位置和删除的项数，如splice(0,2)，第一项位置为0，删除两项
+	nums.splice(1,1);
+	//(2)插入:起始位置、0(表示要删除0项，即这是插入而不是删除)、要插入的项(可以插入多项)
+	nums.splice(1,0,{name:'ppp'},{name:'qqq'});
+	//(3)替换(其实是删除和插入一起用):起始位置、要删除的项数、要插入的项
+	nums.splice(1,2,{name:'rrr'},{name:'sss'});
+	console.log(nums);
+
+	//ES5为Array 提供了5个迭代方法
+	//(1)every(): 若每一项都返回true，则整体返回true
+	var commonArr = [1,2,3,4,5,6,7];
+	console.log(commonArr.every(function(element) {
+		return element > 0;
+	}))//true
+
+	//(2)some(): 若有一项返回true，则整体返回true
+	console.log(commonArr.some(function(element) {
+		return element > 6;
+	}))//true
+	//(3)filter():过滤出满足里面条件的数组
+	console.log(commonArr.filter(function(element) {
+		return element > 3;
+	}))//[4,5,6,7]
+	//(4)forEach():对数组中的每一项运行给定函数，没有返回值
+	commonArr.forEach(function(element) {
+		//执行相关逻辑
+	})
+	//(5)map():对数组中的每一项运行给定函数，返回每次函数调用返回的结果组成的数组
+	console.log(commonArr.map(function(element) {
+		var index = 2;
+		return function(ele) {
+			return ele * index;
+		}(element);
+	}))//[2, 4, 6, 8, 10, 12, 14]
+	</script>
+</body>
+</html>
