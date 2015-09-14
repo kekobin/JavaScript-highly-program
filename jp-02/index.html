@@ -11,7 +11,7 @@
 	function DemoClass(name, age, from) {
 		this.name = name;
 		this.age = age;
-		thia.from = from;
+		this.from = from;
 	}
 
 	DemoClass.prototype.setName = function(name) {
@@ -21,6 +21,24 @@
 	DemoClass.prototype.getName = function() {
 		return this.name;
 	}
+
+	DemoClass.prototype.sayName = function() {
+		console.log("diu ni");
+	}
+
+	function DemoSonClass() {
+		this.name = "Own name";
+	}
+
+	DemoSonClass.prototype = new DemoClass("kebin", 25, "JiuJiang");
+	var demoSon = new DemoSonClass();
+
+	demoSon.sayName();
+	console.log(demoSon.hasOwnProperty("name"))//true
+	console.log(demoSon.__proto__)//DemoClass {name: "kebin", age: 25, from: "JiuJiang"}
+
+	delete demoSon.name;
+	console.log(demoSon.hasOwnProperty("name"))//false
 	</script>
 </body>
 </html>
